@@ -106,7 +106,7 @@ const ProductUpload = () => {
     catId: "",
     category: "",
     countInStock: null,
-    rating: 0,
+    rating: 5,
     isFeatured: null,
     discount: null,
     productRam: [],

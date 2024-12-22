@@ -2478,3 +2478,10 @@ input[type=number]::-webkit-outer-spin-button {
 .css-b995z3-MuiFormControl-root {
   margin-top: 0 !important;
 }
+.truncated-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

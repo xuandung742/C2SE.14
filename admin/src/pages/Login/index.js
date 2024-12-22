@@ -113,7 +113,7 @@ const Login = () => {
             context.setAlertBox({
               open: true,
               error: true,
-              msg: "Bạn không phải admin",
+              msg: "Bạn chưa được cấp quyền, vui lòng liên hệ Admin",
             });
             setIsLoading(false);
           }
@@ -137,7 +137,6 @@ const Login = () => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
 
         const fields = {
@@ -189,18 +188,15 @@ const Login = () => {
         context.setAlertBox({
           open: true,
           error: false,
-          msg: "Xác thực người dùng thành công!",
+          msg: "Đăng nhập thành công!",
         });
 
         // window.location.href = "/";
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         context.setAlertBox({
           open: true,
@@ -213,6 +209,7 @@ const Login = () => {
 
   return (
     <>
+      <img src={patern} className="loginPatern" />
       <section className="loginSection">
         <div className="loginBox">
           <Link to={"/"} className="d-flex align-items-center flex-column logo">
@@ -222,9 +219,8 @@ const Login = () => {
           <div className="wrapper mt-3 card border">
             <form onSubmit={signIn}>
               <div
-                className={`form-group position-relative ${
-                  inputIndex === 0 && "focus"
-                }`}
+                className={`form-group position-relative ${inputIndex === 0 && "focus"
+                  }`}
               >
                 <span className="icon">
                   <MdEmail />
@@ -242,9 +238,8 @@ const Login = () => {
               </div>
 
               <div
-                className={`form-group position-relative ${
-                  inputIndex === 1 && "focus"
-                }`}
+                className={`form-group position-relative ${inputIndex === 1 && "focus"
+                  }`}
               >
                 <span className="icon">
                   <RiLockPasswordFill />

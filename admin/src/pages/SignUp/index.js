@@ -40,7 +40,7 @@ const SignUp = () => {
     phone: "",
     password: "",
     confirmPassword: "",
-    isAdmin: true,
+    isAdmin: false,
   });
 
   const history = useNavigate();
@@ -149,7 +149,6 @@ const SignUp = () => {
         .catch((error) => {
           setIsLoading(false);
           console.error("Error posting data:", error);
-          // Handle error (e.g., show an error message)
         });
     } catch (error) {
       console.log(error);
@@ -161,7 +160,6 @@ const SignUp = () => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // The signed-in user info.
         const user = result.user;
 
         const fields = {
@@ -213,18 +211,16 @@ const SignUp = () => {
         context.setAlertBox({
           open: true,
           error: false,
-          msg: "Xác thực người dùng thành công!",
+          msg: "Đăng nhập thành công!",
         });
 
         // window.location.href = "/";
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
+        // Email da duoc su dung
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         context.setAlertBox({
           open: true,
@@ -237,7 +233,7 @@ const SignUp = () => {
 
   return (
     <>
-      {/* <img src={patern} className="loginPatern" /> */}
+      <img src={patern} className="loginPatern" />
       <section className="loginSection signUpSection">
         <div className="loginBox">
           <Link

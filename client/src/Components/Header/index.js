@@ -112,6 +112,8 @@ const Header = () => {
     context?.setIsOpenFilters(!context?.isOpenFilters);
   };
 
+  // useEffect(()=>{ context.getCartData()},[context])
+
   return (
     <>
       <Button className="gotoTop" ref={gotoTop} onClick={gotoTopScroll}>
@@ -123,7 +125,7 @@ const Header = () => {
           <div className="top-strip bg-blue">
             <div className="container">
               <p className="mb-0 mt-0 text-center">
-              Giao hàng tận tay, miễn phí vận chuyển cho mọi đơn hàng!
+                Giao hàng tận tay, miễn phí vận chuyển cho mọi đơn hàng!
               </p>
             </div>
           </div>
@@ -144,6 +146,11 @@ const Header = () => {
 
                   {context.windowWidth < 992 && (
                     <div className="position-relative cartTab">
+                      <Link to="/my-list">
+                        <Button className="circle">
+                          <IoMdHeartEmpty />
+                        </Button>
+                      </Link>
                       <Link to="/cart" className="ml-auto">
                         <Button className="circle">
                           <MdOutlineShoppingCart />
@@ -164,9 +171,8 @@ const Header = () => {
                     context.windowWidth > 992 && <AIForm />}
 
                   <div
-                    className={`headerSearchWrapper ${
-                      isOpenSearch === true && "open"
-                    }`}
+                    className={`headerSearchWrapper ${isOpenSearch === true && "open"
+                      }`}
                   >
                     <div className=" d-flex align-items-center">
                       <SearchBox closeSearch={closeSearch} />
@@ -237,7 +243,7 @@ const Header = () => {
                           <Link to="/orders">
                             <MenuItem onClick={handleClose}>
                               <ListItemIcon>
-                                <IoBagCheckSharp/>
+                                <IoBagCheckSharp />
                               </ListItemIcon>
                               Theo dõi đơn hàng
                             </MenuItem>
@@ -320,14 +326,14 @@ const Header = () => {
               </Button>
             )}
 
-            <Button className="circle" onClick={openSearch }>
+            <Button className="circle" onClick={openSearch}>
               <div className="d-flex align-items-center justify-content-center flex-column">
                 <IoIosSearch />
                 {/* <span className="title">Tìm kiếm</span> */}
               </div>
             </Button>
 
-            <Link to="/my-list"  onClick={() => setIsOpenSearch(false)}>
+            <Link to="/my-list" onClick={() => setIsOpenSearch(false)}>
               <Button className="circle">
                 <div className="d-flex align-items-center justify-content-center flex-column">
                   <IoMdHeartEmpty />
@@ -336,17 +342,17 @@ const Header = () => {
               </Button>
             </Link>
 
-            <Link to="/orders"  onClick={() => setIsOpenSearch(false)}>
-            <Button className="circle">
-              <div className="d-flex align-items-center justify-content-center flex-column">
-                <IoBagCheckOutline />
-                {/* <span className="title">Đơn hàng</span> */}
-              </div>
-            </Button>
-          </Link>
-            
+            <Link to="/orders" onClick={() => setIsOpenSearch(false)}>
+              <Button className="circle">
+                <div className="d-flex align-items-center justify-content-center flex-column">
+                  <IoBagCheckOutline />
+                  {/* <span className="title">Đơn hàng</span> */}
+                </div>
+              </Button>
+            </Link>
 
-            <Link to="/my-account"  onClick={() => setIsOpenSearch(false)}>
+
+            <Link to="/my-account" onClick={() => setIsOpenSearch(false)}>
               <Button className="circle">
                 <div className="d-flex align-items-center justify-content-center flex-column">
                   <FaRegUser />

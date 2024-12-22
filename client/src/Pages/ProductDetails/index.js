@@ -38,6 +38,10 @@ const ProductDetails = () => {
     setActiveSize(index);
     setTabError(false);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0); // Cuộn trang về đầu khi tải lại trang
+  }, [id]);
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -103,30 +107,41 @@ const ProductDetails = () => {
 
   const addReview = (e) => {
     e.preventDefault();
-
+  
     const user = JSON.parse(localStorage.getItem("user"));
-
+  
     if (user !== null) {
       reviews.customerName = user?.name;
       reviews.customerId = user?.userId;
       reviews.productId = id;
-
+  
       if (reviews.review !== "") {
-
         setIsLoading(true);
-
+  
         postData("/api/productReviews/add", reviews).then((res) => {
           setIsLoading(false);
-
+  
+          // Reset đánh giá
           reviews.customerRating = 1;
-
           setReviews({
             review: "",
             customerRating: 1,
           });
-
+  
+          // Fetch lại danh sách đánh giá mới
           fetchDataFromApi(`/api/productReviews?productId=${id}`).then((res) => {
             setreviewsData(res);
+          });
+  
+          // Cập nhật rating cho productData sau khi gửi đánh giá thành công
+          fetchDataFromApi(`/api/products/${id}`).then((res) => {
+            setProductData(res);
+          });
+  
+          context.setAlertBox({
+            open: true,
+            error: false,
+            msg: "Đánh giá đã được gửi thành công!",
           });
         });
       } else {
@@ -136,7 +151,6 @@ const ProductDetails = () => {
           msg: "Vui lòng nhập đánh giá sản phẩm",
         });
       }
-
     } else {
       context.setAlertBox({
         open: true,
@@ -145,6 +159,9 @@ const ProductDetails = () => {
       });
     }
   };
+  
+
+
 
   const quantity = (val) => {
     setProductQuantity(val);
@@ -289,7 +306,7 @@ const ProductDetails = () => {
                   <span className="badge badge-danger">TẠM HẾT</span>
                 )}
 
-                <p className="mt-3"> {productData?.description}</p>
+                <p className="mt-3 truncated-text" style={{ whiteSpace: 'pre-line' }}> {productData?.description}</p>
                 {productData?.productWeight?.length !== 0 && (
                   <div className="productSize d-flex align-items-center">
                     <span>Phân loại:</span>
@@ -402,7 +419,7 @@ const ProductDetails = () => {
               <br />
 
               {activeTabs === 0 && (
-                <div className="tabContent">{productData?.description}</div>
+                <div className="tabContent" style={{ whiteSpace: 'pre-line' }}>{productData?.description}</div>
               )}
 
 

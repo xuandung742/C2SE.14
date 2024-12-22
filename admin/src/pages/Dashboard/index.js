@@ -39,13 +39,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-export const data = [
-  ["Year", "Sales", "Expenses"],
-  ["2013", 1000, 400],
-  ["2014", 1170, 460],
-  ["2015", 660, 1120],
-  ["2016", 1030, 540],
-];
+// export const data = [
+//   ["Year", "Sales", "Expenses"],
+//   ["2013", 1000, 400],
+//   ["2014", 1170, 460],
+//   ["2015", 660, 1120],
+//   ["2016", 1030, 540],
+// ];
 
 export const options = {
   backgroundColor: "transparent",
@@ -242,7 +242,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="col-md-4 pl-0 d-none">
+          {/* <div className="col-md-4 pl-0 d-none">
             <div className="box graphBox">
               <div className="d-flex align-items-center w-100 bottomEle">
                 <h6 className="text-white mb-0 mt-0">Total Sales</h6>
@@ -263,7 +263,7 @@ const Dashboard = () => {
                 options={options}
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="card shadow border-0 p-3 mt-4">

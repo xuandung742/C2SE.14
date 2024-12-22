@@ -55,7 +55,7 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 
 const columns = [
   { id: "orderId", label: "Order Id", minWidth: 150 },
-  { id: "paymantId", label: "Paymant Id", minWidth: 150 },
+  // { id: "paymantId", label: "Paymant Id", minWidth: 150 },
   {
     id: "products",
     label: "Products",
@@ -158,7 +158,7 @@ const Orders = () => {
         address: res.address,
         // pincode: res.pincode,
         amount: parseInt(res.amount),
-        paymentId: res.paymentId,
+        // paymentId: res.paymentId,
         email: res.email,
         userid: res.userId,
         products: res.products,
@@ -242,11 +242,6 @@ const Orders = () => {
                             <TableCell style={{ minWidth: columns.minWidth }}>
                               <span className="text-blue fonmt-weight-bold">
                                 {order?._id}
-                              </span>
-                            </TableCell>
-                            <TableCell style={{ minWidth: columns.minWidth }}>
-                              <span className="text-blue fonmt-weight-bold">
-                                {order?.paymentId}
                               </span>
                             </TableCell>
                             <TableCell style={{ minWidth: columns.minWidth }}>

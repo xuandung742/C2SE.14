@@ -242,7 +242,9 @@ header .part2 {
 }
 
 body.dark .searchBox {
-  background: #252b49;
+  background: #3f4a7d;
+  /* border: 1px solid #fff; */
+
 }
 
 .searchBox input {
@@ -680,9 +682,9 @@ body.dark .main .sidebarWrapper .sidebar ul .submenu li a:hover {
 }
 
 
-body.dark .logoutWrapper .logoutBox {
+/* body.dark .logoutWrapper .logoutBox {
   background: #1B2038;
-}
+} */
 
 .text-danger {
   color: #FF7375!important;
@@ -764,7 +766,7 @@ body.dark .logoutWrapper .logoutBox {
   width: 50px;
   height: 50px;
   border-radius: 7px;
-  background: #aaafac;
+  background: #fff;
 }
 
 .dashboardBoxWrapper .dashboardBox .icon svg {
@@ -1808,9 +1810,9 @@ button .MuiCircularProgress-root {
   height: 30px !important;
 }
 
-body.dark button svg {
+/* body.dark button svg {
   color: #fff !important;
-}
+} */
 
 .productModal .actions button {
   opacity: 1 !important;

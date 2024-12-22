@@ -189,7 +189,9 @@ const Checkout = () => {
       });
       setTimeout(() => {
         navigate("/")
+        window.location.reload();
       }, 3000);
+
 
       //   // Điều hướng đến trang xác nhận đơn hàng
       //   // history("/order-success");

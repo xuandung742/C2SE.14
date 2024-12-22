@@ -120,6 +120,7 @@ function App() {
       setCartData(res);
     });
   };
+  // useEffect(() => {getCartData()},[]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");

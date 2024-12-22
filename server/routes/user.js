@@ -63,12 +63,12 @@ router.post(`/signup`, async (req, res) => {
         const existingUserByPh = await User.findOne({ phone: phone });
 
         if (existingUser) {
-            res.json({ status: 'FAILED', msg: "User already exist with this email!" })
+            res.json({ status: 'FAILED', msg: "Email đã được sử dụng!" })
             return;
         }
 
         if (existingUserByPh) {
-            res.json({ status: 'FAILED', msg: "User already exist with this phone number!" })
+            res.json({ status: 'FAILED', msg: "Số điện thoại đã được sử dụng!" })
             return;
         }
 
@@ -87,12 +87,12 @@ router.post(`/signup`, async (req, res) => {
         res.status(200).json({
             user: result,
             token: token,
-            msg: "User Register Successfully"
+            msg: "Đăng kí tài khoản thành công."
         })
 
     } catch (error) {
         console.log(error);
-        res.json({ status: 'FAILED', msg: "something went wrong" });
+        res.json({ status: 'FAILED', msg: "Lỗi" });
         return;
     }
 })
@@ -104,13 +104,13 @@ router.post("/signin", async (req, res) => {
         const existingUser = await User.findOne({ email });
 
         if (!existingUser) {
-            return res.status(404).json({ error: true, msg: "User not found!" });
+            return res.status(404).json({ error: true, msg: "Người dùng không tồn tại!" });
         }
 
         const matchPassword = await bcrypt.compare(password, existingUser.password);
 
         if (!matchPassword) {
-            return res.status(400).json({ error: true, msg: "Invalid credentials" });
+            return res.status(400).json({ error: true, msg: "Thông tin đăng nhập không hợp lệ" });
         }
 
         const token = jwt.sign(
@@ -119,10 +119,10 @@ router.post("/signin", async (req, res) => {
         );
         res
             .status(200)
-            .json({ user: existingUser, token, msg: "User authenticated" });
+            .json({ user: existingUser, token, msg: "Đăng nhập thành công!" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: true, msg: "Error occurred during signin" });
+        res.status(500).json({ error: true, msg: "Đã xảy ra lỗi trong quá trình đăng nhập" });
     }
 });
 
@@ -162,14 +162,14 @@ router.post("/forgotpassword", async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
-        return res.status(400).json({ error: true, msg: "Email is required" });
+        return res.status(400).json({ error: true, msg: "Vui lòng nhập email!" });
     }
     console.log(email)
 
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ error: true, msg: "User not found!" });
+            return res.status(404).json({ error: true, msg: "Không tìm thấy người dùng!" });
         }
 
         const newPassword = generateRandomPassword();
@@ -181,22 +181,22 @@ router.post("/forgotpassword", async (req, res) => {
         // Attempt to send email
         try {
             await sendPasswordResetEmail(email, newPassword);
-            console.log("Password reset email sent"); // Debug email sending
+            console.log("Email đặt lại mật khẩu đã được gửi"); // Debug email sending
         } catch (emailError) {
             console.error("Error sending email:", emailError);
             return res
                 .status(500)
-                .json({ error: true, msg: "Error sending reset email" });
+                .json({ error: true, msg: "Lỗi khi gửi email đặt lại" });
         }
 
         res
             .status(200)
-            .json({ status: 200, message: "Password reset successfully" });
+            .json({ status: 200, message: "Đã đặt lại mật khẩu thành công" });
     } catch (error) {
-        console.error("Error in forgot password:", error);
+        console.error("Lỗi:", error);
         res
             .status(500)
-            .json({ error: true, msg: "Error occurred during password reset" });
+            .json({ error: true, msg: "Đã xảy ra lỗi trong quá trình đặt lại mật khẩu" });
     }
 });
 
@@ -207,26 +207,26 @@ router.put("/changePassword/:id", async (req, res) => {
         const user = await User.findById(req.params.id);
 
         if (!user) {
-            return res.status(404).json({ error: true, msg: "User not found!" });
+            return res.status(404).json({ error: true, msg: "Không tìm thấy người dùng!" });
         }
 
         const matchOldPassword = await bcrypt.compare(oldPassword, user.password);
         if (!matchOldPassword) {
             return res
                 .status(400)
-                .json({ error: true, msg: "Old password is incorrect" });
+                .json({ error: true, msg: "Mật khẩu cũ không đúng" });
         }
 
         const hashedNewPassword = await bcrypt.hash(newPassword, 10);
         user.password = hashedNewPassword;
         await user.save();
 
-        res.status(200).json({ msg: "Password changed successfully" });
+        res.status(200).json({ msg: "Mật khẩu đã được thay đổi thành công" });
     } catch (error) {
         console.error(error);
         res
             .status(500)
-            .json({ error: true, msg: "Error occurred during password change" });
+            .json({ error: true, msg: "Đã xảy ra lỗi trong quá trình thay đổi mật khẩu" });
     }
 });
 
@@ -236,7 +236,7 @@ router.get("/", async (req, res) => {
         res.status(200).json(userList);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: true, msg: "Error retrieving users" });
+        res.status(500).json({ error: true, msg: "Lỗi khi truy xuất người dùng" });
     }
 });
 
@@ -244,12 +244,12 @@ router.get("/:id", async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) {
-            return res.status(404).json({ msg: "User not found" });
+            return res.status(404).json({ msg: "Không tìm thấy người dùng" });
         }
         res.status(200).json(user);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: true, msg: "Error retrieving user" });
+        res.status(500).json({ error: true, msg: "Lỗi khi truy xuất người dùng" });
     }
 });
 
@@ -257,12 +257,12 @@ router.delete("/:id", async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if (!user) {
-            return res.status(404).json({ error: true, msg: "User not found" });
+            return res.status(404).json({ error: true, msg: "Không tìm thấy người dùng" });
         }
-        res.status(200).json({ msg: "User deleted successfully" });
+        res.status(200).json({ msg: "Người dùng đã bị xóa thành công" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: true, msg: "Error deleting user" });
+        res.status(500).json({ error: true, msg: "Lỗi khi xóa người dùng" });
     }
 });
 
@@ -300,7 +300,7 @@ router.post(`/authWithGoogle`, async (req, res) => {
             return res.status(200).send({
                 user: result,
                 token: token,
-                msg: "User Login Successfully!"
+                msg: "Đăng nhập thành công!"
             })
 
         }
@@ -312,7 +312,7 @@ router.post(`/authWithGoogle`, async (req, res) => {
             return res.status(200).send({
                 user: existingUser,
                 token: token,
-                msg: "User Login Successfully!"
+                msg: "Đăng nhập thành công!"
             })
         }
 

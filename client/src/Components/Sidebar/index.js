@@ -19,7 +19,7 @@ import { fetchDataFromApi } from '../../utils/api';
 
 
 const Sidebar = (props) => {
-    const [value, setValue] = useState([0, 10000000]);
+    const [value, setValue] = useState([0, 2000000]);
     const [value2, setValue2] = useState(0);
 
     const [subCatId, setSubCatId] = useState('');
@@ -110,7 +110,7 @@ const Sidebar = (props) => {
                 <div className="filterBox">
                     <h6>KHOẢNG GIÁ</h6>
 
-                    <RangeSlider value={value} onInput={setValue} min={0} max={10000000} step={5} />
+                    <RangeSlider value={value} onInput={setValue} min={0} max={2000000} step={5} />
 
 
                     <div className='d-flex pt-2 pb-2 priceRange'>

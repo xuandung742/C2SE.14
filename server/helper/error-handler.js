@@ -1,7 +1,7 @@
 function errorHandler(err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
         // jwt authentication error
-        return res.status(401).json({message: "Người dùng không được cấp quyền."})
+        return res.status(401).json({message: "Bạn chưa được cấp quyền, vui lòng liên hệ Admin"})
     }
 
     if (err.name === 'ValidationError') {
